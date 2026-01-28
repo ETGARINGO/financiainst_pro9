@@ -13,12 +13,14 @@
             --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
             --chip-gold: linear-gradient(145deg, #fceabb 0%, #fccd4d 30%, #f8b500 60%, #fbdf93 100%);
             --accent-blue: #4fc3f7;
+            --mc-red: #eb001b;
+            --mc-orange: #f79e1b;
         }
 
         body {
             margin: 0;
             background: radial-gradient(circle at center, #0a192f, #020617);
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -32,8 +34,8 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
-            /* Precise height to prevent overlap with footer */
-            height: calc(100vh - 110px); 
+            /* Precise calculation to fit between top and button/footer */
+            height: calc(100vh - 125px); 
         }
 
         .atm-card {
@@ -53,35 +55,61 @@
             animation: cardEntry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* --- AUTHENTIC HEADER --- */
+        /* --- AUTHENTIC HEADER DESIGN --- */
         .card-top {
-            padding: 18px 22px 8px;
+            padding: 18px 22px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
 
-        /* REALISTIC METALLIC CHIP */
+        /* METALLIC CHIP WITH ETCHED LINES */
         .chip {
-            width: 44px;
-            height: 32px;
+            width: 46px;
+            height: 34px;
             background: var(--chip-gold);
             border-radius: 6px;
             position: relative;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
         .chip::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                linear-gradient(90deg, transparent 32%, rgba(0,0,0,0.1) 33%, rgba(0,0,0,0.1) 35%, transparent 36%, transparent 63%, rgba(0,0,0,0.1) 64%, rgba(0,0,0,0.1) 66%, transparent 67%),
-                linear-gradient(0deg, transparent 48%, rgba(0,0,0,0.1) 49%, rgba(0,0,0,0.1) 51%, transparent 52%);
+                linear-gradient(90deg, transparent 32%, rgba(0,0,0,0.12) 33%, rgba(0,0,0,0.12) 35%, transparent 36%, transparent 63%, rgba(0,0,0,0.12) 64%, rgba(0,0,0,0.12) 66%, transparent 67%),
+                linear-gradient(0deg, transparent 48%, rgba(0,0,0,0.12) 49%, rgba(0,0,0,0.12) 51%, transparent 52%);
         }
 
-        /* REALISTIC MASTERCARD */
-        .mc-logo { display: flex; width: 45px; height: 28px; position: relative; }
-        .mc-circle { width: 28px; height: 28px; border-radius: 50%; position: absolute; }
-        .mc-red { background: #eb001b; left: 0; }
-        .mc-orange { background: #f79e1b; right: 0; opacity: 0.9; }
+        /* REALISTIC INTERLOCKING MASTERCARD LOGO */
+        .mc-logo {
+            display: flex;
+            position: relative;
+            width: 48px;
+            height: 30px;
+        }
+        .mc-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .mc-red { background: var(--mc-red); left: 0; z-index: 1; }
+        .mc-orange { background: var(--mc-orange); right: 0; z-index: 2; opacity: 0.95; }
+        
+        /* The Interlocking Stripe Detail */
+        .mc-logo::after {
+            content: '';
+            position: absolute;
+            left: 17px; top: 0;
+            width: 14px; height: 30px;
+            z-index: 3;
+            background-image: repeating-linear-gradient(transparent, transparent 3px, var(--mc-orange) 3px, var(--mc-orange) 6px);
+            -webkit-mask-image: radial-gradient(circle, black 15px, transparent 15px);
+            -webkit-mask-position: -17px 0;
+        }
 
         .card-title {
             text-align: center;
@@ -90,7 +118,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         /* --- FIT FORM ADJUSTMENT --- */
@@ -99,56 +127,63 @@
             margin: 0 12px 12px;
             background: #fff;
             border-radius: 12px;
-            overflow: hidden; /* Clips the internal form scroll properly */
+            overflow: hidden;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        iframe { 
-            width: 100%; 
-            height: 100%; 
-            border: none;
-            /* Ensures the Google Form scales correctly to the container */
-            display: block; 
-        }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
 
-        /* --- BUTTON & FOOTER --- */
+        /* --- FLOATING BUTTON --- */
         .full-view-btn {
-            position: fixed; bottom: 55px; left: 50%; transform: translateX(-50%);
-            background: rgba(79, 195, 247, 0.1); border: 1px solid var(--accent-blue);
-            color: var(--accent-blue); padding: 8px 20px; border-radius: 30px;
-            font-size: 0.75rem; font-weight: bold; cursor: pointer; backdrop-filter: blur(10px);
-            z-index: 1000; transition: 0.3s;
+            position: fixed;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(79, 195, 247, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
+        .full-view-btn:hover { background: var(--accent-blue); color: #020617; box-shadow: 0 0 15px var(--accent-blue); }
 
-        .full-view-btn:hover { background: var(--accent-blue); color: #020617; }
-
+        /* --- OVERLAY & FOOTER --- */
         #fullscreen-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #020617; z-index: 20000;
+            background: #020617; z-index: 20000; animation: fadeIn 0.3s ease;
         }
-
         .close-btn {
             position: absolute; top: 15px; right: 20px; background: #ff4d4d;
             color: white; border: none; padding: 8px 16px; border-radius: 8px;
             font-weight: bold; cursor: pointer; z-index: 20001;
         }
-
         .system-footer {
             position: fixed; bottom: 0; left: 0; width: 100%; background: #0a192f; 
-            padding: 8px 0; text-align: center; border-top: 1px solid #1e3a5f;
+            padding: 8px 0; text-align: center; border-top: 1px solid #1e3a5f; z-index: 999;
+        }
+        .siren-slogan { 
+            margin: 0; font-size: 0.65rem; font-weight: 700; 
+            animation: siren-strobe 2.5s infinite ease-in-out; font-style: italic;
         }
 
-        .siren-slogan { margin: 0; font-size: 0.65rem; font-weight: 700; animation: siren-strobe 2.5s infinite ease-in-out; }
-
         @keyframes siren-strobe { 0%, 100% { color: #ff4d4d; } 50% { color: #4fc3f7; } }
-        @keyframes cardEntry { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes cardEntry { 0% { transform: translateY(30px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="atm-card">
-        <img src="1%20LOGO%203D.png" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 60%; opacity: 0.05; pointer-events: none;">
+        <img src="1%20LOGO%203D.png" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 65%; opacity: 0.04; pointer-events: none;">
 
         <div class="card-top">
             <div class="chip"></div>
@@ -166,11 +201,11 @@
     </div>
 </div>
 
-<button class="full-view-btn" onclick="openFullView()">⛶ FULL VIEW FORM</button>
+<button class="full-view-btn" onclick="openFullView()">⛶ Full View Form</button>
 
 <div id="fullscreen-overlay">
-    <button class="close-btn" onclick="closeFullView()">✕ CLOSE</button>
-    <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
+    <button class="close-btn" onclick="closeFullView()">✕ Close</button>
+    <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec" style="width:100%; height:100%; border:none;"></iframe>
 </div>
 
 <footer class="system-footer">
