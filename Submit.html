@@ -13,8 +13,6 @@
             --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
             --chip-gold: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
             --accent-blue: #4fc3f7;
-            --footer-height: 40px;
-            --btn-space: 60px;
         }
 
         body {
@@ -24,98 +22,93 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden; /* Prevent body scroll */
+            overflow: hidden;
             color: white;
         }
 
-        /* --- Main Layout --- */
         .container {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
-            /* Calc height to ensure it fits between top and footer/button area */
-            height: calc(100vh - var(--footer-height) - var(--btn-space));
-            box-sizing: border-box;
+            /* Adjusts for button and footer height */
+            height: calc(100vh - 120px); 
         }
 
         .atm-card {
             width: 100%;
             max-width: 420px; 
-            /* Auto-fit height based on container */
             height: 100%;
-            max-height: 550px; 
+            max-height: 580px;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
             display: flex;
             flex-direction: column;
-            animation: cardEntry 0.8s ease-out;
-            overflow: hidden;
+            animation: cardEntry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* --- Header Section --- */
         .card-top {
-            padding: 12px 15px;
+            padding: 15px 20px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-shrink: 0; /* Prevents header from squishing */
+            flex-shrink: 0;
         }
 
-        .main-logo { height: 32px; width: auto; }
-        .chip { width: 34px; height: 24px; background: var(--chip-gold); border-radius: 4px; }
+        .logo-section { display: flex; align-items: center; gap: 12px; }
+        .main-logo { height: 35px; width: auto; filter: drop-shadow(0 0 10px rgba(79, 195, 247, 0.3)); }
+        .chip { width: 40px; height: 28px; background: var(--chip-gold); border-radius: 5px; }
 
         .card-title {
             text-align: center;
             font-size: 0.65rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.5);
             margin-bottom: 5px;
-            flex-shrink: 0;
         }
 
-        /* --- Form Section --- */
         .iframe-wrapper {
-            flex: 1; /* Takes up all remaining space in card */
-            margin: 0 8px 8px;
+            flex: 1;
+            margin: 0 10px 10px;
             background: #fff;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            -webkit-overflow-scrolling: touch;
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- Floating Button --- */
+        /* --- FLOATING BUTTON --- */
         .full-view-btn {
             position: fixed;
-            bottom: 50px;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(79, 195, 247, 0.15);
+            background: rgba(79, 195, 247, 0.1);
             border: 1px solid var(--accent-blue);
             color: var(--accent-blue);
-            padding: 8px 18px;
+            padding: 10px 22px;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: bold;
             cursor: pointer;
             backdrop-filter: blur(10px);
             z-index: 1000;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .full-view-btn:hover { background: var(--accent-blue); color: #020617; }
 
-        /* --- Fullscreen Overlay --- */
+        /* --- FULLSCREEN OVERLAY (Remains in site) --- */
         #fullscreen-overlay {
             display: none;
             position: fixed;
@@ -123,54 +116,47 @@
             width: 100%; height: 100%;
             background: #020617;
             z-index: 20000;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.3s ease;
         }
 
         .close-btn {
             position: absolute;
-            top: 10px; right: 15px;
+            top: 15px; right: 20px;
             background: #ff4d4d;
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             z-index: 20001;
-            font-size: 0.7rem;
         }
 
-        /* --- Footer --- */
+        /* --- COMPACT FOOTER --- */
         .system-footer {
             position: fixed; bottom: 0; left: 0;
             width: 100%; background: #0a192f; 
-            height: var(--footer-height);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 6px 0; text-align: center;
             border-top: 1px solid #1e3a5f; z-index: 999;
         }
 
         .siren-slogan { 
-            margin: 0; font-size: 0.6rem; font-weight: 700; 
+            margin: 0; font-size: 0.65rem; font-weight: 700; 
             animation: siren-strobe 2.5s infinite ease-in-out; 
-            text-align: center;
-            padding: 0 10px;
+            font-style: italic;
         }
 
-        /* --- Animations --- */
         @keyframes siren-strobe {
-            0%, 100% { color: #ff4d4d; } 50% { color: #4fc3f7; } 
+            0%, 100% { color: #ff4d4d; text-shadow: 0 0 5px rgba(255, 77, 77, 0.3); } 
+            50% { color: #4fc3f7; text-shadow: 0 0 8px rgba(79, 195, 247, 0.4); } 
         }
 
         @keyframes cardEntry {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            0% { transform: translateY(30px) scale(0.95); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -178,25 +164,25 @@
 <div class="container">
     <div class="atm-card">
         <div class="card-top">
-            <div style="display: flex; gap: 8px; align-items: center;">
+            <div class="logo-section">
                 <img src="1%20LOGO%203D.png" alt="Logo" class="main-logo">
                 <div class="chip"></div>
             </div>
-            <div style="font-size: 0.6rem; color: var(--accent-blue); font-weight: bold;">PRO9-v2.1</div>
+            <div style="font-size: 0.6rem; color: var(--accent-blue); font-weight: 800;">PRO9-PORTAL</div>
         </div>
         
         <div class="card-title">Financial & Lending Membership</div>
-        
+
         <div class="iframe-wrapper">
             <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
         </div>
     </div>
 </div>
 
-<button class="full-view-btn" onclick="openFullView()">⛶ FULL VIEW FORM</button>
+<button class="full-view-btn" onclick="openFullView()">⛶ View Full Form</button>
 
 <div id="fullscreen-overlay">
-    <button class="close-btn" onclick="closeFullView()">✕ CLOSE</button>
+    <button class="close-btn" onclick="closeFullView()">✕ Close</button>
     <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
 </div>
 
