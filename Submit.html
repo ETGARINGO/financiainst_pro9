@@ -1,156 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PRO9 Financial Portal</title>
-<style>
-    :root {
-        --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
-        --chip-gold: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
-    }
-
-    body {
-        margin: 0;
-        background: radial-gradient(circle at center, #0a192f, #020617);
-        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-        color: white;
-    }
-
-    /* Main Container */
-    .container {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-        perspective: 1000px;
-    }
-
-    /* ATM Card - Mobile Optimization */
-    .atm-card {
-        width: 100%;
-        max-width: 400px; /* Mobile width */
-        height: 85vh;
-        max-height: 650px;
-        background: var(--card-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 20px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        animation: cardEntry 0.8s ease-out;
-    }
-
-    /* REALISTIC CHIP UPGRADE */
-    .chip {
-        width: 46px;
-        height: 34px;
-        background: var(--chip-gold);
-        border-radius: 6px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
-    }
-
-    /* Chip Contact Etchings */
-    .chip::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-image: 
-            linear-gradient(to right, rgba(0,0,0,0.2) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0,0,0,0.2) 1px, transparent 1px);
-        background-size: 33.33% 50%;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PRO9 Financial Portal</title>
     
-    .chip::after {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 14px;
-        height: 14px;
-        border: 1px solid rgba(0,0,0,0.15);
-        border-radius: 2px;
-    }
+    <link rel="icon" type="image/png" href="your-logo-url.png">
+    <link rel="apple-touch-icon" href="your-logo-url.png">
 
-    .card-top {
-        padding: 18px 20px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+    <style>
+        :root {
+            --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+            --chip-gold: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+        }
 
-    .mc-logo { display: flex; opacity: 0.9; }
-    .mc-circle { width: 30px; height: 30px; border-radius: 50%; }
-    .mc-red { background: #eb001b; margin-right: -12px; }
-    .mc-yellow { background: #f79e1b; opacity: 0.85; }
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #0a192f, #020617);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+        }
 
-    .card-title {
-        text-align: center;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 10px;
-    }
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            perspective: 1000px;
+        }
 
-    /* Iframe Styling */
-    .iframe-wrapper {
-        flex: 1;
-        margin: 0 10px 10px;
-        background: #fff;
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.2);
-    }
+        .atm-card {
+            width: 100%;
+            max-width: 400px;
+            height: 85vh;
+            max-height: 650px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: cardEntry 0.8s ease-out;
+        }
 
-    iframe { width: 100%; height: 100%; border: none; }
+        /* HEADER SECTION */
+        .card-top {
+            padding: 18px 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* MINIMAL FOOTER */
-    .system-footer {
-        padding: 8px 0 12px;
-        text-align: center;
-        background: transparent;
-    }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-    .siren-slogan {
-        margin: 0;
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        color: #64748b; /* Subtle muted color */
-        text-transform: uppercase;
-    }
+        /* LOGO STYLING */
+        .brand-logo {
+            height: 35px; /* Adjust size to fit your logo */
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+        }
 
-    .footer-creds {
-        margin-top: 2px;
-        color: #475569;
-        font-size: 0.55rem;
-        font-weight: 400;
-    }
+        .chip {
+            width: 46px;
+            height: 34px;
+            background: var(--chip-gold);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+        }
 
-    @keyframes cardEntry {
-        0% { transform: translateY(30px); opacity: 0; }
-        100% { transform: translateY(0); opacity: 1; }
-    }
-</style>
+        .chip::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.2) 1px, transparent 1px);
+            background-size: 33.33% 50%;
+        }
+        
+        .mc-logo { display: flex; opacity: 0.9; }
+        .mc-circle { width: 30px; height: 30px; border-radius: 50%; }
+        .mc-red { background: #eb001b; margin-right: -12px; }
+        .mc-yellow { background: #f79e1b; opacity: 0.85; }
+
+        .card-title {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .iframe-wrapper {
+            flex: 1;
+            margin: 0 10px 10px;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        iframe { width: 100%; height: 100%; border: none; }
+
+        .system-footer {
+            padding: 8px 0 12px;
+            text-align: center;
+            background: transparent;
+        }
+
+        .siren-slogan {
+            margin: 0;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .footer-creds {
+            margin-top: 2px;
+            color: #475569;
+            font-size: 0.55rem;
+            font-weight: 400;
+        }
+
+        @keyframes cardEntry {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <div class="atm-card">
         <div class="card-top">
-            <div class="chip"></div>
+            <div class="header-left">
+                <img src="your-logo-url.png" alt="PRO9 Logo" class="brand-logo">
+                <div class="chip"></div>
+            </div>
             
             <div class="mc-logo">
                 <div class="mc-circle mc-red"></div>
