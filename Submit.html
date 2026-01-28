@@ -1,157 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-    margin: 0;
-    background: #05070d;
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>RMFB9 | MINIMAL TACTICAL</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --accent: #00ff41; /* Tactical Green */
+      --text: #ffffff;
+      --border: rgba(255, 255, 255, 0.1);
+    }
 
-.insert-slot {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1000px;
-    padding: 10px;
-}
+    * { box-sizing: border-box; }
 
-.atm-card {
-    width: 100%;
-    max-width: 480px;
-    height: 95%;
-    max-height: 650px;
-    /* Landbank Green Gradient */
-    background: linear-gradient(135deg, #004d26 0%, #002b16 100%);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px rgba(0, 77, 38, 0.4);
-    padding: 20px;
-    box-sizing: border-box;
-    position: relative;
-    animation: cardInsert 1.2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-    color: white;
-}
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: var(--bg);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-@keyframes cardInsert {
-    from { transform: translateY(100%) rotateX(20deg); opacity: 0; }
-    to { transform: translateY(0) rotateX(0deg); opacity: 1; }
-}
+    /* 🛰️ TOP DATA STRIP */
+    .header {
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
 
-/* Landbank Branding */
-.lbp-logo {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    text-align: right;
-}
-.lbp-text {
-    font-weight: 900;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    color: #ffd700; /* Gold */
-    line-height: 1;
-}
-.lbp-sub {
-    font-size: 8px;
-    text-transform: uppercase;
-    color: white;
-}
+    .status-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow: 0 0 8px var(--accent);
+    }
 
-.chip-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
-}
+    /* 📱 MAIN FRAME */
+    .viewport {
+      flex: 1;
+      position: relative;
+      background: #000;
+    }
 
-.chip {
-    width: 50px;
-    height: 38px;
-    background: linear-gradient(135deg, #e5c100, #b8860b);
-    border-radius: 6px;
-    position: relative;
-}
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
-.header-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #ffd700;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(255,215,0,0.2);
-    padding-bottom: 5px;
-}
+    /* 🚨 MINIMAL FOOTER */
+    .footer {
+      height: 40px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+    }
 
-iframe {
-    width: 100%;
-    height: calc(100% - 100px);
-    border: none;
-    border-radius: 10px;
-    background: #f8f9fa;
-}
+    .footer-text {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-/* Minimalist Side-by-Side Footer */
-.system-footer {
-    height: 40px;
-    background: #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    border-top: 1px solid #1a1a1a;
-}
-
-.siren-slogan {
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: #4fc3f7;
-    margin: 0;
-}
-
-.footer-creds {
-    color: #555;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-@media (max-width: 400px) {
-    .siren-slogan { font-size: 0.55rem; }
-    .lbp-text { font-size: 12px; }
-}
-</style>
+    /* Subtle Scanline Effect */
+    .viewport::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="insert-slot">
-  <div class="atm-card">
-      <div class="lbp-logo">
-          <div class="lbp-text">LANDBANK</div>
-          <div class="lbp-sub">Serving the Nation</div>
-      </div>
+  <header class="header">
+    <div><span class="status-dot"></span>RMFB9 // OPS TERMINAL</div>
+    <div id="clock">00:00:00</div>
+  </header>
 
-      <div class="chip-row">
-          <div class="chip"></div>
-      </div>
+  <main class="viewport">
+    <iframe 
+      src="https://script.google.com/macros/s/AKfycbxUuWW-yySkxVWprj3vYyFp_AVBcgj9xK-_SBvyzmbGOAUtIzJDmUgB5AnHsGoU10Gk/exec"
+      loading="lazy">
+    </iframe>
+  </main>
 
-      <div class="header-title">PRO9 FINANCIAL & LENDING PORTAL</div>
+  <footer class="footer">
+    <div class="footer-text">
+      Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman
+    </div>
+  </footer>
 
-      <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
-  </div>
-</div>
-
-<footer class="system-footer">
-  <p class="siren-slogan">Serbisyong Mabilis, Tapat, at Nararamdaman</p>
-  <div class="footer-creds">DMAC | OPRMD PRO9</div>
-</footer>
+  <script>
+    // Real-time clock for the tactical feel
+    function updateClock() {
+      const now = new Date();
+      const time = now.getHours().toString().padStart(2, '0') + ":" + 
+                   now.getMinutes().toString().padStart(2, '0') + ":" + 
+                   now.getSeconds().toString().padStart(2, '0');
+      document.getElementById('clock').textContent = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
 
 </body>
 </html>
