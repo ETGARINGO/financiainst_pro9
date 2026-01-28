@@ -5,7 +5,7 @@
 <style>
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #0b1d13, #030807 90%);
+    background: radial-gradient(circle at center, #1a1c2c, #05070d 90%);
     font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -15,56 +15,44 @@ body {
     overflow: hidden;
 }
 
-/* CARD SLOT AREA */
 .insert-slot {
     width: 95%;
     max-width: 550px;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 2000px;
 }
 
-/* LANDBANK ATM CARD STYLE */
 .atm-card {
     width: 100%;
     height: 100%;
-    background:
-        linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,0,0,0.15)),
-        linear-gradient(135deg, #0a5c2f, #0f7a3f 60%, #13a554);
+    /* Brushed Metal Texture Effect */
+    background: 
+        linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.05) 100%),
+        linear-gradient(135deg, #1c1c1c, #0a0a0a);
+    background-size: cover;
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow:
-        0 0 40px rgba(0, 0, 0, 0.6),
-        0 0 20px rgba(0, 255, 140, 0.15),
-        inset 0 0 25px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Neon Glow like the image */
+    box-shadow: 
+        0 0 30px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(255, 100, 0, 0.15),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
     padding: 25px;
     box-sizing: border-box;
     transform: translateY(-120%) rotateX(10deg);
     animation: cardInsert 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     position: relative;
     color: white;
-    overflow: hidden;
 }
 
 @keyframes cardInsert {
     to { transform: translateY(0) rotateX(0deg); }
 }
 
-/* LANDBANK LOGO TEXT */
-.landbank-logo {
-    position: absolute;
-    top: 25px;
-    right: 30px;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: #ffd84d;
-    text-shadow: 0 0 6px rgba(0,0,0,0.4);
-}
-
-/* CHIP + CONTACTLESS */
+/* Upgraded Chip with Internal Details */
 .chip-container {
     display: flex;
     align-items: center;
@@ -89,6 +77,7 @@ body {
     border-radius: 8px;
 }
 
+/* Contactless Waves */
 .contactless {
     width: 30px;
     height: 30px;
@@ -96,7 +85,6 @@ body {
     gap: 4px;
     align-items: center;
 }
-
 .wave {
     border-right: 3px solid rgba(255,255,255,0.7);
     height: 10px;
@@ -105,60 +93,76 @@ body {
 .wave:nth-child(2) { height: 18px; }
 .wave:nth-child(3) { height: 26px; }
 
-/* CARD TEXT */
+/* Mastercard Logo Style */
+.mc-logo {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    display: flex;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+}
+.mc-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.mc-red { background: #EB001B; margin-right: -12px; }
+.mc-yellow { background: rgba(247, 158, 27, 0.9); }
+
 .header {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 8px;
-    color: rgba(255,255,255,0.9);
-}
-
-.card-number {
-    font-size: 18px;
-    letter-spacing: 4px;
-    opacity: 0.85;
     margin-bottom: 15px;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* IFRAME AREA */
+/* Modern Glass Iframe */
 iframe {
     width: 100%;
-    height: calc(100% - 120px);
+    height: calc(100% - 95px);
     border: none;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* MINIMAL FOOTER */
+/* Improved Footer */
 .system-footer {
-    height: 60px;
+    height: 120px;
     width: 100%;
-    background: #030807;
+    background: #05070d;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-top: 1px solid rgba(79, 195, 247, 0.15);
-    padding: 5px 10px;
+    border-top: 1px solid rgba(79, 195, 247, 0.2);
 }
 
 .siren-slogan {
-    margin: 0;
-    font-size: 0.7rem;
-    font-weight: 500;
+    margin: 0 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
     text-align: center;
-    color: #9fb3c8;
-    opacity: 0.85;
+    background: linear-gradient(90deg, #ff4d4d, #4fc3f7, #ff4d4d);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
 }
 
 .footer-creds {
-    margin-top: 3px;
-    color: #4c5a70;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
+    margin-top: 10px;
+    color: #5c6b89;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 }
 </style>
 </head>
@@ -167,8 +171,10 @@ iframe {
 
 <div class="insert-slot">
   <div class="atm-card">
-
-      <div class="landbank-logo">LANDBANK</div>
+      <div class="mc-logo">
+          <div class="mc-circle mc-red"></div>
+          <div class="mc-circle mc-yellow"></div>
+      </div>
 
       <div class="chip-container">
           <div class="chip"></div>
@@ -180,15 +186,13 @@ iframe {
       </div>
 
       <div class="header">PRO9 FINANCIAL & LENDING MEMBERSHIP</div>
-      <div class="card-number">•••• •••• •••• 0921</div>
 
       <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
-
   </div>
 </div>
 
 <footer class="system-footer">
-  <p class="siren-slogan">Serbisyong Mabilis, Tapat, at Nararamdaman</p>
+  <p class="siren-slogan">“Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman”</p>
   <div class="footer-creds">DMAC Portal | OPRMD PRO9</div>
 </footer>
 
