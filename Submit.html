@@ -5,164 +5,152 @@
 <style>
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #1a1c2c, #05070d 90%);
+    background: #05070d;
     font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     overflow: hidden;
 }
 
+/* Container adjustment for side-to-side fit */
 .insert-slot {
-    width: 95%;
-    max-width: 550px;
-    height: calc(100vh - 120px);
+    flex: 1;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 2000px;
+    perspective: 1500px;
+    padding: 0 15px; /* Side spacing */
+    box-sizing: border-box;
 }
 
 .atm-card {
     width: 100%;
-    height: 100%;
-    /* Brushed Metal Texture Effect */
+    max-width: 500px;
+    height: 92%;
+    max-height: 600px;
+    /* Landbank Green Gradient with Metallic Texture */
     background: 
-        linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.05) 100%),
-        linear-gradient(135deg, #1c1c1c, #0a0a0a);
-    background-size: cover;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Neon Glow like the image */
-    box-shadow: 
-        0 0 30px rgba(0, 0, 0, 0.5),
-        0 0 15px rgba(255, 100, 0, 0.15),
-        inset 0 0 15px rgba(255, 255, 255, 0.05);
-    padding: 25px;
+        linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 50%, rgba(255,255,255,0.05) 100%),
+        linear-gradient(135deg, #004d26, #002b16);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    padding: 20px;
     box-sizing: border-box;
-    transform: translateY(-120%) rotateX(10deg);
-    animation: cardInsert 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     position: relative;
+    transform: translateY(-120%);
+    animation: cardInsert 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     color: white;
 }
 
 @keyframes cardInsert {
-    to { transform: translateY(0) rotateX(0deg); }
+    to { transform: translateY(0); }
 }
 
-/* Upgraded Chip with Internal Details */
-.chip-container {
+/* Landbank Branding Styles */
+.lbp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.lbp-logo-area {
+    text-align: left;
+}
+
+.lbp-brand {
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #ffd700;
+    letter-spacing: -0.5px;
+    line-height: 1;
+}
+
+.lbp-tagline {
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+/* Upgraded Chip & Contactless */
+.card-tech-row {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .chip {
-    width: 60px;
-    height: 42px;
-    background: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
-    border-radius: 8px;
+    width: 50px;
+    height: 38px;
+    background: linear-gradient(135deg, #fceabb, #f8b500);
+    border-radius: 6px;
     position: relative;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
 }
 
-.chip::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(90deg, transparent 0, transparent 15%, rgba(0,0,0,0.1) 15%, rgba(0,0,0,0.1) 17%);
-    border-radius: 8px;
+.contactless-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
 }
 
-/* Contactless Waves */
-.contactless {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    gap: 4px;
-    align-items: center;
-}
-.wave {
-    border-right: 3px solid rgba(255,255,255,0.7);
-    height: 10px;
-    border-radius: 0 50% 50% 0;
-}
-.wave:nth-child(2) { height: 18px; }
-.wave:nth-child(3) { height: 26px; }
-
-/* Mastercard Logo Style */
-.mc-logo {
-    position: absolute;
-    top: 25px;
-    right: 30px;
-    display: flex;
-    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-}
-.mc-circle {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-}
-.mc-red { background: #EB001B; margin-right: -12px; }
-.mc-yellow { background: rgba(247, 158, 27, 0.9); }
-
-.header {
-    font-size: 14px;
+.portal-title {
+    font-size: 11px;
     font-weight: 800;
+    color: #ffd700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-    color: rgba(255,255,255,0.9);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    display: inline-block;
 }
 
-/* Modern Glass Iframe */
+/* Optimized Iframe */
 iframe {
     width: 100%;
-    height: calc(100% - 95px);
+    height: calc(100% - 105px);
     border: none;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* Improved Footer */
+/* Minimal Side-by-Side Footer */
 .system-footer {
-    height: 120px;
+    height: 35px;
     width: 100%;
-    background: #05070d;
+    background: #000;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(79, 195, 247, 0.2);
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-top: 1px solid #1a1a1a;
 }
 
 .siren-slogan {
-    margin: 0 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-align: center;
-    background: linear-gradient(90deg, #ff4d4d, #4fc3f7, #ff4d4d);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 4s linear infinite;
-}
-
-@keyframes shine {
-    to { background-position: 200% center; }
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #4fc3f7; /* Fixed blue to match PNP theme */
+    margin: 0;
+    white-space: nowrap;
 }
 
 .footer-creds {
-    margin-top: 10px;
-    color: #5c6b89;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
+    color: #444;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+    .atm-card { height: 95%; padding: 15px; }
+    .siren-slogan { font-size: 0.55rem; }
 }
 </style>
 </head>
@@ -171,29 +159,30 @@ iframe {
 
 <div class="insert-slot">
   <div class="atm-card">
-      <div class="mc-logo">
-          <div class="mc-circle mc-red"></div>
-          <div class="mc-circle mc-yellow"></div>
-      </div>
-
-      <div class="chip-container">
-          <div class="chip"></div>
-          <div class="contactless">
-              <div class="wave"></div>
-              <div class="wave"></div>
-              <div class="wave"></div>
+      <div class="lbp-header">
+          <div class="lbp-logo-area">
+              <div class="lbp-brand">LANDBANK</div>
+              <div class="lbp-tagline">Serving the Nation</div>
+          </div>
+          <div class="contactless-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                <path d="M12 2a10 10 0 0 1 10 10M12 6a6 6 0 0 1 6 6M12 10a2 2 0 0 1 2 2" />
+              </svg>
           </div>
       </div>
 
-      <div class="header">PRO9 FINANCIAL & LENDING MEMBERSHIP</div>
+      <div class="card-tech-row">
+          <div class="chip"></div>
+          <div class="portal-title">PRO9 FINANCIAL & LENDING</div>
+      </div>
 
       <iframe src="https://script.google.com/macros/s/AKfycbxTIsVPja2GJ5oZ3kaqu6dkhKbS0B-y8pNMtmmwaQ63nFIU0vOFNnPT_joKjTkl4eIe/exec"></iframe>
   </div>
 </div>
 
 <footer class="system-footer">
-  <p class="siren-slogan">“Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman”</p>
-  <div class="footer-creds">DMAC Portal | OPRMD PRO9</div>
+  <p class="siren-slogan">Serbisyong Mabilis, Tapat, at Nararamdaman</p>
+  <div class="footer-creds">DMAC | OPRMD PRO9</div>
 </footer>
 
 </body>
