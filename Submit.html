@@ -15,81 +15,82 @@
         flex-direction: column;
     }
 
-    /* CARD INSERT ANIMATION */
-    .card-wrapper {
-        perspective: 1200px;
+    /* Leave space for footer */
+    .insert-slot {
         width: 100%;
-        max-width: 420px;
-        padding: 15px;
-        box-sizing: border-box;
-        animation: insertCard 1.2s ease-out forwards;
-        transform: translateY(-120%);
-    }
-
-    @keyframes insertCard {
-        to { transform: translateY(0); }
+        max-width: 500px;
+        height: calc(100vh - 90px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1000px;
     }
 
     .atm-card {
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        border-radius: 22px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+        border-radius: 20px;
+        box-shadow: 0 0 40px rgba(0,255,150,0.25),
+                    inset 0 0 25px rgba(0,255,150,0.15);
         padding: 15px;
-        color: white;
+        box-sizing: border-box;
+        transform: translateY(-120%) scale(0.95);
+        animation: cardInsert 1.2s ease-out forwards, glowPulse 2s infinite alternate 1.2s;
         position: relative;
         overflow: hidden;
-        animation: powerGlow 2s ease-in-out infinite alternate;
     }
 
-    @keyframes powerGlow {
-        from { box-shadow: 0 0 20px rgba(0,255,180,0.2); }
-        to { box-shadow: 0 0 40px rgba(0,255,180,0.45); }
+    @keyframes cardInsert {
+        to { transform: translateY(0) scale(1); }
     }
 
-    /* Card chip */
-    .chip {
-        width: 55px;
-        height: 38px;
-        background: linear-gradient(135deg, gold, #c9a227);
-        border-radius: 6px;
-        margin-bottom: 8px;
+    @keyframes glowPulse {
+        from { box-shadow: 0 0 25px rgba(0,255,150,0.2), inset 0 0 15px rgba(0,255,150,0.1); }
+        to { box-shadow: 0 0 50px rgba(0,255,150,0.45), inset 0 0 30px rgba(0,255,150,0.2); }
     }
 
-    .card-title {
-        font-size: 13px;
-        letter-spacing: 1px;
-        opacity: 0.85;
-    }
-
-    .bank-name {
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-shadow: 0 0 6px rgba(255,255,255,0.5);
-    }
-
-    /* Shine animation */
-    .atm-card::after {
+    /* Scan lines */
+    .atm-card::before {
         content: "";
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 40%, transparent 60%);
-        transform: rotate(25deg);
-        animation: shine 4s infinite;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,150,0.05),
+            rgba(0,255,150,0.05) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+        animation: scanMove 6s linear infinite;
+        pointer-events: none;
     }
 
-    @keyframes shine {
-        0% { transform: translateX(-100%) rotate(25deg); }
-        100% { transform: translateX(100%) rotate(25deg); }
+    @keyframes scanMove {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(100%); }
+    }
+
+    .header {
+        text-align: center;
+        color: #00ffae;
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px rgba(0,255,150,0.9);
+        animation: flicker 2s infinite alternate;
+    }
+
+    @keyframes flicker {
+        from { opacity: 0.85; }
+        to { opacity: 1; }
     }
 
     iframe {
         width: 100%;
-        height: 62vh;
-        min-height: 420px;
+        height: calc(100% - 50px);
         border: none;
         border-radius: 12px;
         background: white;
@@ -97,12 +98,12 @@
 
     /* FOOTER */
     .system-footer {
-        position: fixed; bottom: 0; left: 0; width: 100%;
+        height: 90px;
+        width: 100%;
         background: #0a192f;
-        padding: 12px 0;
+        padding: 10px 0;
         text-align: center;
         border-top: 2px solid #1e3a5f;
-        z-index: 9999;
         box-shadow: 0 -5px 20px rgba(0,0,0,0.6);
     }
 
@@ -130,7 +131,7 @@
     }
 
     @media (max-width: 480px) {
-        iframe { height: 65vh; }
+        .header { font-size: 16px; }
         .siren-slogan { font-size: 0.75rem; }
     }
 </style>
@@ -138,11 +139,9 @@
 
 <body>
 
-<div class="card-wrapper">
+<div class="insert-slot">
     <div class="atm-card">
-        <div class="chip"></div>
-        <div class="card-title">PRO9 ACCREDITED</div>
-        <div class="bank-name">FINANCIAL & LENDING MEMBERSHIP</div>
+        <div class="header">PRO9 ACCREDITED FINANCIAL & LENDING MEMBERSHIP</div>
 
         <iframe 
           src="https://script.google.com/macros/s/AKfycbxTIsVPja2GJ5oZ3kaqu6dkhKbS0B-y8pNMtmmwaQ63nFIU0vOFNnPT_joKjTkl4eIe/exec"
