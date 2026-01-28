@@ -26,22 +26,20 @@
             color: white;
         }
 
-        /* Container adjusted to prevent overlap */
         .container {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
-            padding-bottom: 90px; /* Space for footer and floating button */
+            padding-bottom: 100px; 
             perspective: 1000px;
         }
 
         .atm-card {
             width: 100%;
-            max-width: 400px; 
-            height: 75vh; /* Reduced height to fix frame issues */
-            max-height: 550px;
+            max-width: 420px; 
+            height: 70vh; /* Optimized height */
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -52,124 +50,98 @@
             display: flex;
             flex-direction: column;
             animation: cardEntry 0.8s ease-out;
+            z-index: 1;
         }
 
         .card-top {
-            padding: 12px 15px;
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .main-logo {
-            height: 38px;
-            width: auto;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-        }
-
-        .chip {
-            width: 38px;
-            height: 26px;
-            background: var(--chip-gold);
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .mc-logo { display: flex; opacity: 0.8; }
-        .mc-circle { width: 25px; height: 25px; border-radius: 50%; }
-        .mc-red { background: #eb001b; margin-right: -10px; }
-        .mc-yellow { background: #f79e1b; opacity: 0.85; }
+        .main-logo { height: 35px; width: auto; }
+        .chip { width: 35px; height: 24px; background: var(--chip-gold); border-radius: 4px; }
 
         .card-title {
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
         }
 
         .iframe-wrapper {
             flex: 1;
-            margin: 0 10px 10px;
+            margin: 0 8px 8px;
             background: #fff;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.2);
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- FLOATING FULL VIEW BUTTON --- */
+        /* --- FLOATING BUTTON --- */
         .full-view-btn {
             position: fixed;
-            bottom: 75px; /* Positioned above footer */
+            bottom: 65px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(79, 195, 247, 0.2);
             border: 1px solid var(--accent-blue);
             color: var(--accent-blue);
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 30px;
             font-size: 0.75rem;
             font-weight: bold;
-            text-decoration: none;
+            cursor: pointer;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
         }
 
-        .full-view-btn:hover {
-            background: var(--accent-blue);
-            color: #020617;
-            box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+        .full-view-btn:hover { background: var(--accent-blue); color: #020617; }
+
+        /* --- FULLSCREEN OVERLAY --- */
+        #fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #020617;
+            z-index: 20000;
         }
 
-        /* --- REDUCED FOOTER SIZE --- */
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 20001;
+        }
+
+        /* --- MINI FOOTER --- */
         .system-footer {
             position: fixed; bottom: 0; left: 0;
-            width: 100%; background: rgba(10, 25, 47, 0.95); 
-            padding: 8px 0; text-align: center;
-            border-top: 1px solid #1e3a5f; z-index: 9999; 
-            font-family: 'Segoe UI', sans-serif;
+            width: 100%; background: #0a192f; 
+            padding: 6px 0; text-align: center;
+            border-top: 1px solid #1e3a5f; z-index: 999;
         }
 
         .siren-slogan { 
-            margin: 0 10px; 
-            font-size: 0.7rem; /* Smaller font */
-            font-style: italic; 
-            font-weight: 700; 
+            margin: 0; font-size: 0.65rem; font-weight: 700; 
             animation: siren-strobe 2.5s infinite ease-in-out; 
-            line-height: 1.2; 
         }
 
         @keyframes siren-strobe {
-            0%, 100% { color: #ff4d4d; text-shadow: 0 0 5px rgba(255, 77, 77, 0.3); } 
-            50% { color: #4fc3f7; text-shadow: 0 0 8px rgba(79, 195, 247, 0.4); } 
-        }
-
-        .footer-creds { 
-            margin: 3px 0 0; 
-            color: #90caf9; 
-            font-size: 0.55rem; 
-            letter-spacing: 1px; 
-            opacity: 0.7;
-        }
-
-        @media (max-width: 480px) {
-            .atm-card { height: 70vh; }
-            .container { padding-bottom: 100px; }
+            0%, 100% { color: #ff4d4d; } 50% { color: #4fc3f7; } 
         }
 
         @keyframes cardEntry {
@@ -183,36 +155,37 @@
 <div class="container">
     <div class="atm-card">
         <div class="card-top">
-            <div class="logo-section">
+            <div style="display: flex; gap: 8px; align-items: center;">
                 <img src="1%20LOGO%203D.png" alt="Logo" class="main-logo">
                 <div class="chip"></div>
             </div>
-            <div class="mc-logo">
-                <div class="mc-circle mc-red"></div>
-                <div class="mc-circle mc-yellow"></div>
-            </div>
         </div>
-        
         <div class="card-title">Financial & Lending Membership</div>
-
         <div class="iframe-wrapper">
             <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
         </div>
     </div>
 </div>
 
-<a href="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec" target="_blank" class="full-view-btn">
-    <span>⛶</span> FULL VIEW FORM
-</a>
+<button class="full-view-btn" onclick="openFullView()">⛶ VIEW FULL FORM</button>
+
+<div id="fullscreen-overlay">
+    <button class="close-btn" onclick="closeFullView()">✕ CLOSE</button>
+    <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec" style="width:100%; height:100%;"></iframe>
+</div>
 
 <footer class="system-footer">
-    <p class="siren-slogan">
-        “Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman”
-    </p>
-    <div class="footer-creds">
-        &copy; 2026 DMAC Portal | <strong>OPRMD PRO9</strong>
-    </div>
+    <p class="siren-slogan">“Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman”</p>
 </footer>
+
+<script>
+    function openFullView() {
+        document.getElementById('fullscreen-overlay').style.display = 'block';
+    }
+    function closeFullView() {
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
