@@ -1,137 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>RMFB9 | MINIMAL TACTICAL</title>
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --accent: #00ff41; /* Tactical Green */
-      --text: #ffffff;
-      --border: rgba(255, 255, 255, 0.1);
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at center, #0b1d13, #030807 90%);
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
 
-    * { box-sizing: border-box; }
+/* CARD SLOT AREA */
+.insert-slot {
+    width: 95%;
+    max-width: 550px;
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 2000px;
+}
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: var(--bg);
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+/* LANDBANK ATM CARD STYLE */
+.atm-card {
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,0,0,0.15)),
+        linear-gradient(135deg, #0a5c2f, #0f7a3f 60%, #13a554);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(0, 255, 140, 0.15),
+        inset 0 0 25px rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    box-sizing: border-box;
+    transform: translateY(-120%) rotateX(10deg);
+    animation: cardInsert 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
 
-    /* 🛰️ TOP DATA STRIP */
-    .header {
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px;
-      font-size: 10px;
-      letter-spacing: 2px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.02);
-    }
+@keyframes cardInsert {
+    to { transform: translateY(0) rotateX(0deg); }
+}
 
-    .status-dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin-right: 8px;
-      box-shadow: 0 0 8px var(--accent);
-    }
+/* LANDBANK LOGO TEXT */
+.landbank-logo {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #ffd84d;
+    text-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
 
-    /* 📱 MAIN FRAME */
-    .viewport {
-      flex: 1;
-      position: relative;
-      background: #000;
-    }
+/* CHIP + CONTACTLESS */
+.chip-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
 
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+.chip {
+    width: 60px;
+    height: 42px;
+    background: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+    border-radius: 8px;
+    position: relative;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
 
-    /* 🚨 MINIMAL FOOTER */
-    .footer {
-      height: 40px;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 20px;
-    }
+.chip::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent 15%, rgba(0,0,0,0.1) 15%, rgba(0,0,0,0.1) 17%);
+    border-radius: 8px;
+}
 
-    .footer-text {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+.contactless {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
 
-    /* Subtle Scanline Effect */
-    .viewport::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                  linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
-      background-size: 100% 2px, 3px 100%;
-      pointer-events: none;
-      opacity: 0.3;
-    }
-  </style>
+.wave {
+    border-right: 3px solid rgba(255,255,255,0.7);
+    height: 10px;
+    border-radius: 0 50% 50% 0;
+}
+.wave:nth-child(2) { height: 18px; }
+.wave:nth-child(3) { height: 26px; }
+
+/* CARD TEXT */
+.header {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.9);
+}
+
+.card-number {
+    font-size: 18px;
+    letter-spacing: 4px;
+    opacity: 0.85;
+    margin-bottom: 15px;
+}
+
+/* IFRAME AREA */
+iframe {
+    width: 100%;
+    height: calc(100% - 120px);
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* MINIMAL FOOTER */
+.system-footer {
+    height: 60px;
+    width: 100%;
+    background: #030807;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(79, 195, 247, 0.15);
+    padding: 5px 10px;
+}
+
+.siren-slogan {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    color: #9fb3c8;
+    opacity: 0.85;
+}
+
+.footer-creds {
+    margin-top: 3px;
+    color: #4c5a70;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+}
+</style>
 </head>
+
 <body>
 
-  <header class="header">
-    <div><span class="status-dot"></span>RMFB9 // OPS TERMINAL</div>
-    <div id="clock">00:00:00</div>
-  </header>
+<div class="insert-slot">
+  <div class="atm-card">
 
-  <main class="viewport">
-    <iframe 
-      src="https://script.google.com/macros/s/AKfycbxUuWW-yySkxVWprj3vYyFp_AVBcgj9xK-_SBvyzmbGOAUtIzJDmUgB5AnHsGoU10Gk/exec"
-      loading="lazy">
-    </iframe>
-  </main>
+      <div class="landbank-logo">LANDBANK</div>
 
-  <footer class="footer">
-    <div class="footer-text">
-      Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman
-    </div>
-  </footer>
+      <div class="chip-container">
+          <div class="chip"></div>
+          <div class="contactless">
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+          </div>
+      </div>
 
-  <script>
-    // Real-time clock for the tactical feel
-    function updateClock() {
-      const now = new Date();
-      const time = now.getHours().toString().padStart(2, '0') + ":" + 
-                   now.getMinutes().toString().padStart(2, '0') + ":" + 
-                   now.getSeconds().toString().padStart(2, '0');
-      document.getElementById('clock').textContent = time;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
+      <div class="header">PRO9 FINANCIAL & LENDING MEMBERSHIP</div>
+      <div class="card-number">•••• •••• •••• 0921</div>
+
+      <iframe src="https://script.google.com/macros/s/AKfycbzLNG9rFzSk-4_QClWYXz3_Gej8yIT3pkP6tP1UaHRN8h3o4__sEsyjHTBwNa4qG9UI7A/exec"></iframe>
+
+  </div>
+</div>
+
+<footer class="system-footer">
+  <p class="siren-slogan">Serbisyong Mabilis, Tapat, at Nararamdaman</p>
+  <div class="footer-creds">DMAC Portal | OPRMD PRO9</div>
+</footer>
 
 </body>
 </html>
