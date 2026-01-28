@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <link rel="icon" type="image/png" href="1%20LOGO%203D.png">
     <link rel="apple-touch-icon" href="1%20LOGO%203D.png">
-    
+
     <title>PRO9 Financial Portal</title>
     <style>
         :root {
@@ -30,14 +31,15 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
+            padding-bottom: 80px; /* Room for fixed footer */
             perspective: 1000px;
         }
 
         .atm-card {
             width: 100%;
             max-width: 400px; 
-            height: 85vh;
-            max-height: 650px;
+            height: 80vh;
+            max-height: 600px;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -50,7 +52,6 @@
             animation: cardEntry 0.8s ease-out;
         }
 
-        /* Adjusted header to fit the 3D Logo */
         .card-top {
             padding: 15px 20px;
             display: flex;
@@ -65,7 +66,7 @@
         }
 
         .main-logo {
-            height: 45px; /* Adjust height based on your 3D logo's look */
+            height: 45px;
             width: auto;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
         }
@@ -115,23 +116,42 @@
 
         iframe { width: 100%; height: 100%; border: none; }
 
+        /* --- UPDATED FOOTER STYLES --- */
         .system-footer {
-            padding: 8px 0 12px;
-            text-align: center;
+            position: fixed; bottom: 0; left: 0;
+            width: 100%; background: #0a192f; 
+            padding: 12px 0; text-align: center;
+            border-top: 2px solid #1e3a5f; z-index: 9999; 
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.6);
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        .siren-slogan {
-            margin: 0;
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
+        .siren-slogan { 
+            margin: 0 15px; 
+            font-size: 0.85rem; 
+            font-style: italic; 
+            font-weight: 700; 
+            animation: siren-strobe 2.5s infinite ease-in-out; 
+            line-height: 1.4; 
         }
 
-        .footer-creds {
-            margin-top: 2px;
-            color: #475569;
-            font-size: 0.55rem;
+        @keyframes siren-strobe {
+            0%, 100% { color: #ff4d4d; text-shadow: 0 0 8px rgba(255, 77, 77, 0.5); } 
+            50% { color: #4fc3f7; text-shadow: 0 0 12px rgba(79, 195, 247, 0.6); } 
+        }
+
+        .footer-creds { 
+            margin: 6px 0 0; 
+            color: #90caf9; 
+            font-size: 0.65rem; 
+            letter-spacing: 1.5px; 
+            opacity: 0.8;
+            text-transform: uppercase; 
+        }
+
+        @media (max-width: 480px) {
+            .siren-slogan { font-size: 0.75rem; }
+            .atm-card { height: 75vh; }
         }
 
         @keyframes cardEntry {
@@ -149,7 +169,6 @@
                 <img src="1%20LOGO%203D.png" alt="Logo" class="main-logo">
                 <div class="chip"></div>
             </div>
-            
             <div class="mc-logo">
                 <div class="mc-circle mc-red"></div>
                 <div class="mc-circle mc-yellow"></div>
@@ -165,8 +184,12 @@
 </div>
 
 <footer class="system-footer">
-    <p class="siren-slogan">Serbisyong Mabilis, Tapat, at Nararamdaman</p>
-    <div class="footer-creds">DMAC PORTAL | OPRMD PRO9</div>
+    <p class="siren-slogan">
+        “Bagong PNP para sa Bagong Pilipinas: Serbisyong Mabilis, Tapat, at Nararamdaman”
+    </p>
+    <div class="footer-creds">
+        &copy; 2026 DMAC Portal | <strong>OPRMD PRO9</strong>
+    </div>
 </footer>
 
 </body>
