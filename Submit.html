@@ -1,189 +1,208 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+/* ========== BODY & LAYOUT ========== */
 body {
     margin: 0;
-    background: #05070d;
-    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    background: radial-gradient(circle at center, #0b1d13, #030807 90%);
     overflow: hidden;
 }
 
-/* Container adjustment for side-to-side fit */
+/* ========== CARD SLOT ========== */
 .insert-slot {
-    flex: 1;
-    width: 100%;
+    width: 95%;
+    max-width: 550px;
+    height: calc(100vh - 70px); /* adjusted for smaller footer */
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1500px;
-    padding: 0 15px; /* Side spacing */
-    box-sizing: border-box;
+    perspective: 2000px;
 }
 
+/* ========== ATM CARD ========== */
 .atm-card {
     width: 100%;
-    max-width: 500px;
-    height: 92%;
-    max-height: 600px;
-    /* Landbank Green Gradient with Metallic Texture */
-    background: 
-        linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 50%, rgba(255,255,255,0.05) 100%),
-        linear-gradient(135deg, #004d26, #002b16);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-    padding: 20px;
+    height: 100%;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,0,0,0.15)),
+        linear-gradient(135deg, #0a5c2f, #0f7a3f 60%, #13a554);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow:
+        0 0 40px rgba(0,0,0,0.6),
+        0 0 20px rgba(0,255,140,0.15),
+        inset 0 0 25px rgba(255,255,255,0.05);
+    padding: 25px;
     box-sizing: border-box;
     position: relative;
-    transform: translateY(-120%);
-    animation: cardInsert 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     color: white;
+    overflow: hidden;
+    transform: translateY(-120%) rotateX(10deg);
+    animation: cardInsert 1.5s cubic-bezier(0.23,1,0.32,1) forwards;
 }
 
+/* Card Insert Animation */
 @keyframes cardInsert {
-    to { transform: translateY(0); }
+    to { transform: translateY(0) rotateX(0deg); }
 }
 
-/* Landbank Branding Styles */
-.lbp-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
+/* Glossy Light Sweep */
+.atm-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.0) 0%,
+        rgba(255,255,255,0.15) 50%,
+        rgba(255,255,255,0.0) 100%
+    );
+    transform: rotate(25deg);
+    animation: lightSweep 6s linear infinite;
+}
+@keyframes lightSweep {
+    0% { left: -75%; }
+    100% { left: 130%; }
 }
 
-.lbp-logo-area {
-    text-align: left;
-}
-
-.lbp-brand {
-    font-weight: 900;
-    font-size: 1.2rem;
-    color: #ffd700;
-    letter-spacing: -0.5px;
-    line-height: 1;
-}
-
-.lbp-tagline {
-    font-size: 0.5rem;
-    text-transform: uppercase;
+/* ========== LAND BANK LOGO ========== */
+.landbank-logo {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-weight: 800;
+    font-size: 18px;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: #ffd84d;
+    text-shadow: 0 0 6px rgba(0,0,0,0.4);
 }
 
-/* Upgraded Chip & Contactless */
-.card-tech-row {
+/* ========== CHIP & CONTACTLESS ========== */
+.chip-container {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .chip {
-    width: 50px;
-    height: 38px;
-    background: linear-gradient(135deg, #fceabb, #f8b500);
-    border-radius: 6px;
+    width: 60px;
+    height: 42px;
+    background: linear-gradient(135deg, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+    border-radius: 8px;
     position: relative;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
 }
 
-.contactless-icon {
-    width: 20px;
-    height: 20px;
-    opacity: 0.8;
+.chip::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent 15%, rgba(0,0,0,0.1) 15%, rgba(0,0,0,0.1) 17%);
+    border-radius: 8px;
 }
 
-.portal-title {
-    font-size: 11px;
-    font-weight: 800;
-    color: #ffd700;
-    letter-spacing: 1.5px;
+.contactless {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+.wave {
+    border-right: 3px solid rgba(255,255,255,0.7);
+    height: 10px;
+    border-radius: 0 50% 50% 0;
+}
+.wave:nth-child(2) { height: 18px; }
+.wave:nth-child(3) { height: 26px; }
+
+/* ========== CARD TEXT ========== */
+.header {
+    font-size: 14px;
+    font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-    display: inline-block;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.9);
 }
 
-/* Optimized Iframe */
+.card-number {
+    font-size: 18px;
+    letter-spacing: 4px;
+    opacity: 0.85;
+    margin-bottom: 15px;
+}
+
+/* ========== IFRAME AREA ========== */
 iframe {
     width: 100%;
-    height: calc(100% - 105px);
+    height: calc(100% - 120px);
     border: none;
-    border-radius: 10px;
-    background: #ffffff;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.97);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Minimal Side-by-Side Footer */
+/* ========== MINIMAL FOOTER ========== */
 .system-footer {
-    height: 35px;
+    height: 60px;
     width: 100%;
-    background: #000;
+    background: #030807;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 0 20px;
-    box-sizing: border-box;
-    border-top: 1px solid #1a1a1a;
+    border-top: 1px solid rgba(79, 195, 247, 0.15);
+    padding: 5px 10px;
 }
 
 .siren-slogan {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #4fc3f7; /* Fixed blue to match PNP theme */
     margin: 0;
-    white-space: nowrap;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    color: #9fb3c8;
+    opacity: 0.85;
 }
 
 .footer-creds {
-    color: #444;
+    margin-top: 3px;
+    color: #4c5a70;
     font-size: 0.6rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-@media (max-width: 480px) {
-    .atm-card { height: 95%; padding: 15px; }
-    .siren-slogan { font-size: 0.55rem; }
-}
 </style>
 </head>
-
 <body>
 
 <div class="insert-slot">
   <div class="atm-card">
-      <div class="lbp-header">
-          <div class="lbp-logo-area">
-              <div class="lbp-brand">LANDBANK</div>
-              <div class="lbp-tagline">Serving the Nation</div>
-          </div>
-          <div class="contactless-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
-                <path d="M12 2a10 10 0 0 1 10 10M12 6a6 6 0 0 1 6 6M12 10a2 2 0 0 1 2 2" />
-              </svg>
-          </div>
-      </div>
 
-      <div class="card-tech-row">
+      <div class="landbank-logo">LANDBANK</div>
+
+      <div class="chip-container">
           <div class="chip"></div>
-          <div class="portal-title">PRO9 FINANCIAL & LENDING</div>
+          <div class="contactless">
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+          </div>
       </div>
 
-      <iframe src="https://script.google.com/macros/s/AKfycbxTIsVPja2GJ5oZ3kaqu6dkhKbS0B-y8pNMtmmwaQ63nFIU0vOFNnPT_joKjTkl4eIe/exec"></iframe>
-  </div>
-</div>
+      <div class="header">PRO9 FINANCIAL & LENDING MEMBERSHIP</div>
+      <div class="card-number">•••• •••• •••• 0921</div>
 
-<footer class="system-footer">
-  <p class="siren-slogan">Serbisyong Mabilis, Tapat, at Nararamdaman</p>
-  <div class="footer-creds">DMAC | OPRMD PRO9</div>
-</footer>
-
-</body>
-</html>
+      <iframe src="https://script.google.com/macros/s/AK
